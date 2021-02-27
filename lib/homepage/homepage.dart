@@ -18,6 +18,15 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _radiusTextEditingController =
       new TextEditingController();
 
+  String validate(val) {
+    if (val.isEmpty) {
+      return 'Enter the correct value';
+    } else if (val > 300) {
+      return 'Incorrect amount of value';
+    } else
+      return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,8 +59,17 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    validator: validate,
                     controller: _latitudeTextEditingController,
+                    onEditingComplete: () {
+                      setState(() {
+                        FocusScope.of(context)
+                            .requestFocus(_longituteFocusNode);
+                      });
+                    },
                     decoration: InputDecoration(
+                      border: InputBorder.none,
                       hintText: 'Enter Latitude Value',
                       hintStyle: TextStyle(color: Colors.grey[900]),
                     ),
@@ -67,9 +85,17 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextFormField(
+                    validator: validate,
+                    keyboardType: TextInputType.number,
                     focusNode: _longituteFocusNode,
                     controller: _longitudeTextEditingController,
+                    onEditingComplete: () {
+                      setState(() {
+                        FocusScope.of(context).requestFocus(_radiusFocusNode);
+                      });
+                    },
                     decoration: InputDecoration(
+                        border: InputBorder.none,
                         hintText: 'Enter Longitude Value',
                         hintStyle: TextStyle(color: Colors.grey[900])),
                   ),
@@ -84,9 +110,12 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextFormField(
+                    validator: validate,
                     focusNode: _radiusFocusNode,
                     controller: _radiusTextEditingController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
+                        border: InputBorder.none,
                         hintText: 'Enter Radius Value',
                         hintStyle: TextStyle(color: Colors.grey[900])),
                   ),
@@ -94,9 +123,16 @@ class _HomePageState extends State<HomePage> {
               ),
               Container(
                 child: RaisedButton(
-                  child: Text('Sumbit'),
-                  onPressed: () {},
-                ),
+                    child: Text('Sumbit'),
+                    onPressed: () {
+                      if (_homePageFormKey.currentState.validate()) {
+                        setState(() {});
+                      } else
+                        print('Please provide full data');
+                    }
+
+                    //color: Colors.cyan,
+                    ),
               ),
             ],
           ),
