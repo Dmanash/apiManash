@@ -39,30 +39,56 @@ class _HomePageState extends State<HomePage> {
         child: Form(
           key: _homePageFormKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                child: TextFormField(
-                  controller: _latitudeTextEditingController,
-                  decoration: InputDecoration(
-                    hintText: 'Enter Latitude Value',
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  padding: EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.purple),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextFormField(
+                    controller: _latitudeTextEditingController,
+                    decoration: InputDecoration(
+                      hintText: 'Enter Latitude Value',
+                      hintStyle: TextStyle(color: Colors.grey[900]),
+                    ),
                   ),
                 ),
               ),
-              Container(
-                child: TextFormField(
-                  focusNode: _longituteFocusNode,
-                  controller: _longitudeTextEditingController,
-                  decoration: InputDecoration(
-                    hintText: 'Enter Longitude Value',
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  padding: EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.purple),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextFormField(
+                    focusNode: _longituteFocusNode,
+                    controller: _longitudeTextEditingController,
+                    decoration: InputDecoration(
+                        hintText: 'Enter Longitude Value',
+                        hintStyle: TextStyle(color: Colors.grey[900])),
                   ),
                 ),
               ),
-              Container(
-                child: TextFormField(
-                  focusNode: _radiusFocusNode,
-                  controller: _radiusTextEditingController,
-                  decoration: InputDecoration(
-                    hintText: 'Enter Radius Value',
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  padding: EdgeInsets.only(left: 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.purple),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextFormField(
+                    focusNode: _radiusFocusNode,
+                    controller: _radiusTextEditingController,
+                    decoration: InputDecoration(
+                        hintText: 'Enter Radius Value',
+                        hintStyle: TextStyle(color: Colors.grey[900])),
                   ),
                 ),
               ),
