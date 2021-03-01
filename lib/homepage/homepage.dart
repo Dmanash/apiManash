@@ -128,11 +128,8 @@ class _HomePageState extends State<HomePage> {
                       if (_homePageFormKey.currentState.validate()) {
                         setState(() {});
                       } else
-                        print('Please provide full data');
-                    }
-
-                    //color: Colors.cyan,
-                    ),
+                        return 'Error';
+                    }),
               ),
             ],
           ),
