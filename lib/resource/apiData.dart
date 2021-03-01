@@ -5,6 +5,8 @@ import 'package:manashmanashmanash/data/widget.dart';
 
 import 'dart:convert';
 
+import 'package:manashmanashmanash/homepage/homepage.dart';
+
 class DisplayResult extends StatefulWidget {
   @override
   _DisplayResultState createState() => _DisplayResultState();
@@ -39,6 +41,14 @@ class _DisplayResultState extends State<DisplayResult> {
     return Scaffold(
       //backgroundColor: Colors.cyan,
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              setState(() {
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => HomePage()));
+              });
+            }),
         backgroundColor: Colors.black,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,18 +63,20 @@ class _DisplayResultState extends State<DisplayResult> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(top: 25, left: 15, right: 15),
+          padding: EdgeInsets.only(top: 25, left: 10, right: 10),
           child: requestMapResponse == null
-              ? Center(
-                  child: Container(
-                    child: Text('Error'),
+              ? Container(
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.red,
+                    ),
                   ),
                 )
               : Column(
                   children: [
                     Container(
                       color: Colors.black,
-                      padding: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(5),
                       child: Text(
                         'Here is the list of available sites:',
                         style: TextStyle(fontSize: 20, color: Colors.white),
@@ -73,56 +85,60 @@ class _DisplayResultState extends State<DisplayResult> {
                     SizedBox(
                       height: 15,
                     ),
-                    ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount:
-                            requestMapResponse == null ? 0 : listOfSites.length,
-                        itemBuilder: (context, int index) {
-                          return Container(
-                            padding: EdgeInsets.only(bottom: 20),
-                            height: 250,
-                            child: Container(
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.purple,
-                                  ),
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ValueContainer(
-                                    mainText: 'Name:',
-                                    dataText:
-                                        listOfSites[index]['name'].toString(),
-                                  ),
-                                  ValueContainer(
-                                    mainText: 'TimeStamp:',
-                                    dataText: requestMapResponse['timestamp']
-                                        .toString(),
-                                  ),
-                                  ValueContainer(
-                                    mainText: 'Distance:',
-                                    dataText: listOfSites[index]['distance']
-                                        .toString(),
-                                  ),
-                                  ValueContainer(
-                                    mainText: 'Latitude:',
-                                    dataText:
-                                        listOfSites[index]['lat'].toString(),
-                                  ),
-                                  ValueContainer(
-                                    mainText: 'Longitude:',
-                                    dataText:
-                                        listOfSites[index]['lng'].toString(),
-                                  ),
-                                ],
+                    Container(
+                      height: MediaQuery.of(context).size.height,
+                      child: ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: requestMapResponse == null
+                              ? 0
+                              : listOfSites.length,
+                          itemBuilder: (context, int index) {
+                            return Container(
+                              padding: EdgeInsets.only(bottom: 20),
+                              height: 250,
+                              child: Container(
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.purple,
+                                    ),
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    ValueContainer(
+                                      mainText: 'Name:',
+                                      dataText:
+                                          listOfSites[index]['name'].toString(),
+                                    ),
+                                    ValueContainer(
+                                      mainText: 'TimeStamp:',
+                                      dataText: requestMapResponse['timestamp']
+                                          .toString(),
+                                    ),
+                                    ValueContainer(
+                                      mainText: 'Distance:',
+                                      dataText: listOfSites[index]['distance']
+                                          .toString(),
+                                    ),
+                                    ValueContainer(
+                                      mainText: 'Latitude:',
+                                      dataText:
+                                          listOfSites[index]['lat'].toString(),
+                                    ),
+                                    ValueContainer(
+                                      mainText: 'Longitude:',
+                                      dataText:
+                                          listOfSites[index]['lng'].toString(),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        }),
+                            );
+                          }),
+                    ),
                   ],
                 ),
         ),

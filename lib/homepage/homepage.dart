@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manashmanashmanash/resource/apiData.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -6,6 +7,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool isLoading = false;
   final FocusNode _longituteFocusNode = new FocusNode();
   final FocusNode _radiusFocusNode = new FocusNode();
 
@@ -20,9 +22,7 @@ class _HomePageState extends State<HomePage> {
 
   String validate(val) {
     if (val.isEmpty) {
-      return 'Enter the correct value';
-    } else if (val > 300) {
-      return 'Incorrect amount of value';
+      return 'Enter the  values';
     } else
       return null;
   }
@@ -110,8 +110,8 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextFormField(
-                    validator: validate,
                     focusNode: _radiusFocusNode,
+                    validator: validate,
                     controller: _radiusTextEditingController,
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
@@ -126,7 +126,13 @@ class _HomePageState extends State<HomePage> {
                     child: Text('Sumbit'),
                     onPressed: () {
                       if (_homePageFormKey.currentState.validate()) {
-                        setState(() {});
+                        setState(() {
+                          isLoading = true;
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DisplayResult()));
+                        });
                       } else
                         return 'Error';
                     }),
